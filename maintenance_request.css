@@ -1,0 +1,52 @@
+#container {
+	
+}
+
+h1 {
+	font-variant: small-caps;
+	display: table-header-group;
+}
+
+p {
+	padding-top: 1px;
+	margin-top: 1px;
+	padding-bottom: 4px;
+	margin-bottom: 4px;
+}
+
+#line1 {
+	display: table-row;
+	border: 1px;
+}
+
+#line2 {
+	display: table-row;
+	border: 1px;
+}
+
+#line3 {
+	display: table-row;
+	border: 1px;
+}
+
+#line4 {
+	display: table-row;
+	border: 1px;
+}
+
+#line5 {
+	display: table-row;
+	border: 1px;
+}
+
+#line6 {
+	display: none;
+	border: 1px;
+	background: grey;
+}
+
+#line7 {
+	display: none;
+	border: 1px;
+	background: grey;
+}

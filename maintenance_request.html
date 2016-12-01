@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+	<title>Maintenance Request</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="maintenance_request.css">
+	<script src="maintenance_request.js"></script>
+	<!-- Going to need jQuery and jQueryUI -->
+</head>
+<body>
+	<table id="container" border="2">
+		<tr>
+			<th>
+				<h1>Maintenance Request / Note to Management</h1>
+				<!-- rename the id's as what they contain, or leave as line number? -->
+			</th>
+		</tr>
+		<tr id="line1">
+			<td>
+				<!-- date, name, apt. no. -->
+				<!-- Have Datebox jQueryUI widget -->
+				Date: <input type="date" id="date"> <!-- Doesn't seem to do size -->
+				Name: <input type="text" maxLength = "60" id="tenant" size="32">
+				Apartment Number: <input type="number" min="101" max="314" step="1" id="aptNo" size="3">
+			</td>
+		</tr>
+		<tr id="line2">
+			<td>
+				<!-- How quickly to respond? + checkboxes -->
+				<p><strong>For Maintenance requests:</strong> How quickly would you like us to respond?</p>
+				<input type="checkbox" name="whenToFix" value="Tuesdays">Maintenance Day (Tuesdays) &nbsp;
+				<input type="checkbox" name="whenToFix" value="Immediately">Immediately &nbsp; <!-- Probably want to CSS these puppies to go to the left, center and right of the table they're in -->
+				<input type="checkbox" name="whenToFix" value="Whenever">Whenever, not a rush
+				<!-- Need to do something later to collect this info -- but maybe just use JavaScript rather than a form -->
+			</td>
+		</tr>
+		<tr id="line3">
+			<td>
+				<!-- Permission to enter? -->
+				<p>If you are not home, do we have permission to enter your apartment to resolve this issue?</p>
+				<input type="radio" name="permission" value="Yes">Yes
+				<input type="radio" name="permission" value="No">No &nbsp;&nbsp;
+				What time of the day is best: <input type="text" maxLength = "60" id="timeOfDay" size="42">
+			</td>
+		</tr>
+		<tr id="line4">
+			<td>
+				<!-- Contact method -->
+				<span>Contact method: </span>
+				<input type="checkbox" name="contactMethod" value="Phone">Phone &nbsp;
+				<input type="checkbox" name="contactMethod" value="Text">Text &nbsp;&nbsp;&nbsp;
+				Number: <input type="tel"> <!-- Does this need to be a textbox? and can I RegEx it? -->
+			</td>
+		</tr>
+		<tr id="line5">
+			<td>
+				<!-- Description of problem/note -->
+				<p>DESCRIPTION OF PROBLEM/NOTE:</p>
+				<textarea rows="10" cols="80" name="Description"></textarea>
+			</td>
+		</tr>
+		<!-- Probably going to make this (rows 6 & 7) invisible to the public, and only show to certain people...somehow -->
+		<tr id="line6">
+			<td>
+				<!-- Assessment (by maintenance person) -->
+				<p>Assessment:</p>
+				<textarea rows="10" cols="80" name="Description"></textarea>
+			</td>
+		</tr>
+		<tr id="line7">
+			<td>
+				<!-- Received, assessed, completed; by whom/dates -->
+				Received: <input type="text" size="8" id="received">
+				<input type="date" id="receivedDate">
+				Assessed: <input type="text" size="8" id="assessed">
+				<input type="date" id="assessedDate">
+				Completed: <input type="text" size="12" id="completed">
+				<input type="date" id="completedDate">
+			</td>
+		</tr>
+	</table>
+	<br>
+	<input type="submit" id="submitButton" value="Submit"> <!-- Center this -->
+</body>
+</html>
