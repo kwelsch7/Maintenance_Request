@@ -6,11 +6,20 @@
 		
 		$conn = openDB($servername, $dbname, $username, $password, $conn);
 		
+		$dt = trim($_POST["dt"]);
+		$tenant = trim($_POST["tenant"]);
+		$apartmentNumber = trim($_POST["apartmentNumber"]);
+		$maintenanceDay = $_POST["maintenanceDay"];
+		$immediately = $_POST["immediately"];
+		$whenever = $_POST["whenever"];
+		$permission = $_POST["permission"];
+		$timeOfDay = trim($_POST["timeOfDay"]);
+		$phoneContact = $_POST["phoneContact"];
+		$textContact = $_POST["textContact"];
+		$phoneNumber = trim($_POST["phoneNumber"]);
+		$description = trim($_POST["description"]);
+		
 		// The following info is reference material from my tMDB Assignment:
-		$name = trim($_POST["name"]);
-		$year = trim($_POST["year"]);
-		$studio = trim($_POST["studio"]);
-		$price = trim($_POST["price"]);
 		
 		//hardened.js should ensure that year and price are proper numbers
 		if(!preg_match($pattern ,$name) || !preg_match($pattern ,$studio))
