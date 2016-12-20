@@ -1,12 +1,16 @@
 <?php
 	$servername = "localhost";
-	$username = "konnorwe_maintReq";
-	$password = "complaintSubmi55ion";
-	$dbname = "konnorwe_maintenance_request";
+	
+	// On the actual Server:
+	//$username = "konnorwe_maintReq";
+	//$password = "complaintSubmi55ion";
+	//$dbname = "konnorwe_maintenance_request";
+	
 	// Local Testing/Debugging:
-	//$username = "root";
-	//$password = "";
-	//$dbname = "maintenance_request";
+	$username = "root";
+	$password = "";
+	$dbname = "maintenance_request";
+	
 	$conn = null;
 
 	function openDB($servername, $dbname,$username, $password, $conn)
