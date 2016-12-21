@@ -4,8 +4,9 @@
 	{
 		require "mr_config.php"
 		
-		$conn = openDB($servername, $dbname, $username, $password, $conn);
+		//$conn = openDB($servername, $dbname, $username, $password, $conn);
 		
+		$dt;
 		$dt = trim($_POST["dt"]);
 		$tenant = trim($_POST["tenant"]);
 		$apartmentNumber = trim($_POST["apartmentNumber"]);
@@ -20,7 +21,7 @@
 		$description = trim($_POST["description"]);
 		
 		// The following info is reference material from my tMDB Assignment:
-		
+		/*
 		//hardened.js should ensure that year and price are proper numbers
 		if(!preg_match($pattern ,$name) || !preg_match($pattern ,$studio))
 		{
@@ -50,7 +51,9 @@
 			$conn = null; //These are in each rather than at the very end so they're before the echo
 			
 			//echo $name;
-		}
+		}*/
+		
+		echo "Submission successful";
 	}
 	
 ?>

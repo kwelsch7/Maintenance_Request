@@ -1,13 +1,13 @@
 $(document).ready(start);
 
 var dt; // date data type
-var tenant; // varchar(80)
+var tenant; // varchar(60)
 var apartmentNumber; // 3-digit int
 var maintenanceDay; // boolean
 var immediately; // boolean
 var whenever; // boolean
 var permission; // boolean
-var timeOfDay; //varchar(40)
+var timeOfDay; //varchar(60)
 var phoneContact; //boolean
 var textContact; //boolean
 var phoneNumber; // parse to char(9)
@@ -27,7 +27,7 @@ function start()
 
 function validateForm()
 {
-	parseDate();
+	var dateParsed = parseDate();
 	tenant = $("#tenant").val();
 	apartmentNumber = $("#aptNo").val();
 	maintenanceDay = $("#maintenanceDay").is(":checked");
@@ -37,21 +37,57 @@ function validateForm()
 	timeOfDay = $("#timeOfDay").val();
 	phoneContact = $("#phoneContact").is(":checked");
 	textContact = $("#textContact").is(":checked");
-	parsePhone();
+	var phoneParsed = parsePhone();
 	description = $("#description").val();
 	
+	var message = "";
+	var contactInfo = true;
+	
+	if(!dateParsed)
+		message += "-Date not given/is invalid.\r\n";
+	if(tenant == "")
+		message += "-Name not given.\r\n";
 	if(apartmentNumber > 114 && apartmentNumber < 201 || apartmentNumber > 214 && apartmentNumber < 301)
-		; // Not a validate apartment number (outer ends are validated in the HTML)
+		message += "-Not a valid apartment number.\r\n"; // (Outer ends and being a positive integer are validated in the HTML)
 	if(!maintenanceDay && !immediately && !whenever)
-		; // No urgency given
+		message += "-No response time given.\r\n";
 	if(timeOfDay == "")
-		; // No timeframe given
-	if(!phoneContact && !textContact && phoneNumber == "")
-		; // Warn of no contact info given, but allow them to leave blank if they have none
+		message += "-No time of day given.\r\n";
+	if(!phoneContact && !textContact)
+		contactInfo = window.confirm("No contact method was given.\r\nClick 'yes' if you have no working phone;\r\notherwise, choose 'cancel' and enter that information.");
+	else if(phoneContact && textContact && phoneNumber == "")
+		message += "-Contact method given but no phone number provided.\r\n";
 	if(description == "")
-		; // No descrption given
+		message += "-No description of the problem given."; // No description given
 	
-	
+	if(message != "" || !contactInfo)
+	{
+		// Put focus at the earliest problem field
+		if(message[1] == 'D')
+			$("#date").focus();
+		else if(message[3] == 'm')
+			$("#tenant").focus();
+		else if(message[7] == 'v')
+			$("#aptNo").focus();
+		else if(message[4] == 'r')
+			$("#maintenanceDay").focus();
+		else if(message[5] == 'i')
+			$("#timeOfDay").focus();
+		else if(!contactInfo)
+			$("#phoneContact").focus();
+		else if(message[1] == 'C')
+			$("#phoneNumber").focus();
+		else if(message[4] == 'd')
+			$("#description").focus();
+		
+		if(message != "")
+		{
+			message = "Errors:\r\n" + message;
+			alert(message);
+		}
+		return false;
+	}
+	return true;
 }
 
 function parseDate()
@@ -60,6 +96,7 @@ function parseDate()
 	dt = $("#date").val();
 	//get 8 digits out of whatever they put and turn it into a YYYY-MM-DD format
 	
+	return true;
 }
 
 function parsePhone()
@@ -68,30 +105,32 @@ function parsePhone()
 	phoneNumber = $("#phoneNumber").val();
 	//get nine digits out of whatever they put (ignore country code)
 	
+	return true;
 }
 
 function addRequest()
 {
-	// Get info from form (prevent submission if not corredct format)
-	validateForm();
-	
-	// Do PHP
-	var json = 
+	// Global variables are assigned in validateForm()
+	if(validateForm())
 	{
-		"dt":dt,
-		"tenant":tenant,
-		"apartmentNumber":apartmentNumber,
-		"maintenanceDay":maintenanceDay,
-		"immediately":immediately,
-		"whenever":whenever,
-		"permission":permission,
-		"timeOfDay":timeOfDay,
-		"phoneContact":phoneContact,
-		"textContact":textContact,
-		"phoneNumber":phoneNumber,
-		"description":description
+		var json = 
+		{
+			"dt":dt,
+			"tenant":tenant,
+			"apartmentNumber":apartmentNumber,
+			"maintenanceDay":maintenanceDay,
+			"immediately":immediately,
+			"whenever":whenever,
+			"permission":permission,
+			"timeOfDay":timeOfDay,
+			"phoneContact":phoneContact,
+			"textContact":textContact,
+			"phoneNumber":phoneNumber,
+			"description":description
+		}
+		
+		$.post("mr_main.php", json, successfulSubmission);
 	}
-	$.post("mr_main.php", json, successfulSubmission);
 }
 
 function successfulSubmission(result)

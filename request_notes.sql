@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2016 at 09:45 PM
+-- Generation Time: Dec 21, 2016 at 01:55 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `request_notes` (
   `requestID` int(11) NOT NULL,
   `dt` date NOT NULL,
-  `tenant` varchar(80) NOT NULL,
+  `tenant` varchar(60) NOT NULL,
   `apartmentNumber` int(3) NOT NULL,
   `maintenanceDay` tinyint(1) NOT NULL,
   `immediately` tinyint(1) NOT NULL,
   `whenever` tinyint(1) NOT NULL,
   `permission` tinyint(1) NOT NULL,
-  `timeOfDay` varchar(40) NOT NULL,
+  `timeOfDay` varchar(60) NOT NULL,
   `phoneContact` tinyint(1) NOT NULL,
   `textContact` tinyint(1) NOT NULL,
   `phoneNumber` char(9) NOT NULL,
