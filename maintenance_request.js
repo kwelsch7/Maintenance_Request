@@ -3,7 +3,7 @@ $(document).ready(start);
 var dt; // date data type
 var tenant; // varchar(60)
 var apartmentNumber; // 3-digit int
-var maintenanceDay; // boolean
+var maintenanceDay; // boolean -- enum('true', 'false')
 var immediately; // boolean
 var whenever; // boolean
 var permission; // boolean
@@ -16,7 +16,7 @@ var description; // text data type
 function start()
 {
 	// Display setup
-	$("#received").hide();
+	$("#receivedNote").hide();
 	$("#adminPage").hide();
 	$("#date").focus();
 	
@@ -94,8 +94,23 @@ function parseDate()
 {
 	// A helper function to validateForm
 	dt = $("#date").val();
-	//get 8 digits out of whatever they put and turn it into a YYYY-MM-DD format
+	var formattedDt = "";
+	var count = 0;
 	
+	for(var x = 0; x < dt.length; x++)
+	{
+		if($.isNumeric(dt[x]))
+		{
+			if(count == 4 || count == 6)
+				formattedDt += "-";
+			formattedDt += dt[x];
+			count++;
+		}
+	}
+	date = formattedDt;
+	
+	if(count != 8)
+		return false;
 	return true;
 }
 
@@ -103,8 +118,26 @@ function parsePhone()
 {
 	// A helper function to validateForm
 	phoneNumber = $("#phoneNumber").val();
-	//get nine digits out of whatever they put (ignore country code)
+	var formattedPhone = "";
+	var count = 0;
 	
+	for(var x = 0; x < phoneNumber.length; x++)
+	{
+		if($.isNumeric(phoneNumber[x]))
+		{
+			if(!(count == 0 && phoneNumber[x] == 1)) //ignore country code
+			{
+				if(count == 3 || count == 6)
+					formattedPhone += "-";
+				formattedPhone += phoneNumber[x];
+				count++;
+			}
+		}
+	}
+	phoneNumber = formattedPhone;
+	
+	if(count != 9)
+		return false;
 	return true;
 }
 
@@ -129,7 +162,7 @@ function addRequest()
 			"description":description
 		}
 		
-		$.post("mr_main.php", json, successfulSubmission);
+		$.post("maintenance_request.php", json, successfulSubmission);
 	}
 }
 
@@ -139,7 +172,7 @@ function successfulSubmission(result)
 	//Should I give the key for that maintenance request so the user can access and edit it?
 	
 	$("#requestNote").hide(); // Same page/html file
-	$("#received").fadeIn(500);
+	$("#receivedNote").fadeIn(500);
 	$("#returnButton").focus();
 }
 
@@ -160,7 +193,7 @@ function newRequest()
 	$("#description").val("");
 	
 	// Ready the display
-	$("#receieved").hide();
+	$("#receivedNote").hide();
 	$("#requestNote").fadeIn(500);
 	$("#date").focus();
 	

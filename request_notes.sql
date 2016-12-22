@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2016 at 01:55 AM
+-- Generation Time: Dec 22, 2016 at 06:07 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -31,14 +31,14 @@ CREATE TABLE `request_notes` (
   `dt` date NOT NULL,
   `tenant` varchar(60) NOT NULL,
   `apartmentNumber` int(3) NOT NULL,
-  `maintenanceDay` tinyint(1) NOT NULL,
-  `immediately` tinyint(1) NOT NULL,
-  `whenever` tinyint(1) NOT NULL,
-  `permission` tinyint(1) NOT NULL,
+  `maintenanceDay` enum('true','false') NOT NULL,
+  `immediately` enum('true','false') NOT NULL,
+  `whenever` enum('true','false') NOT NULL,
+  `permission` enum('true','false') NOT NULL,
   `timeOfDay` varchar(60) NOT NULL,
-  `phoneContact` tinyint(1) NOT NULL,
-  `textContact` tinyint(1) NOT NULL,
-  `phoneNumber` char(9) NOT NULL,
+  `phoneContact` enum('true','false') NOT NULL,
+  `textContact` enum('true','false') NOT NULL,
+  `phoneNumber` char(12) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -60,7 +60,7 @@ ALTER TABLE `request_notes`
 -- AUTO_INCREMENT for table `request_notes`
 --
 ALTER TABLE `request_notes`
-  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
