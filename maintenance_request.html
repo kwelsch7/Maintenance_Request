@@ -22,7 +22,7 @@
 					<!-- Have Datebox jQueryUI widget -->
 					Date: <input type="date" id="date"> <!-- Doesn't seem to do size -->
 					Name: <input type="text" maxLength = "60" id="tenant" size="32">
-					Apartment Number: <input type="number" min="101" max="314" step="1" id="aptNo" size="3">
+					Apartment Number: <input type="number" value="100" min="101" max="314" step="1" id="aptNo" size="3">
 				</td>
 			</tr>
 			<tr id="line2">
@@ -57,28 +57,32 @@
 				<td>
 					<!-- Description of problem/note -->
 					<p>DESCRIPTION OF PROBLEM/NOTE:</p>
-					<textarea rows="10" cols="80" id="description" name="Description"></textarea>
+					<textarea rows="8" cols="80" id="description" name="Description"></textarea>
 				</td>
 			</tr>
-			<!-- Probably going to make this (rows 6 & 7) invisible to the public, and only show to certain people...somehow -->
-			<tr id="line6">
-				<td>
-					<!-- Assessment (by maintenance person) -->
-					<p>Assessment:</p>
-					<textarea rows="10" cols="80" name="Assessment"></textarea>
-				</td>
-			</tr>
-			<tr id="line7">
-				<td>
-					<!-- Received, assessed, completed; by whom/dates -->
-					Received: <input type="text" size="8" id="received">
-					<input type="date" id="receivedDate">
-					Assessed: <input type="text" size="8" id="assessed">
-					<input type="date" id="assessedDate">
-					Completed: <input type="text" size="12" id="completed">
-					<input type="date" id="completedDate">
-				</td>
-			</tr>
+			
+			<!-- Only displayed on the bottom of Existing Requests being viewed by Admins -->
+			<!-- In the css, the rows have "display: none;" -- Will probably need to play with the css attribute rather than the div.show() -->
+			<div id="adminAssessment">
+				<tr id="line6">
+					<td>
+						<!-- Assessment (by maintenance person) -->
+						<p>Assessment:</p>
+						<textarea rows="5" cols="80" name="Assessment"></textarea>
+					</td>
+				</tr>
+				<tr id="line7">
+					<td>
+						<!-- Received, assessed, completed; by whom/dates -->
+						Received: <input type="text" size="8" id="received" placeholder="Initials">
+						<input type="date" id="receivedDate">
+						Assessed: <input type="text" size="8" id="assessed" placeholder="Initials">
+						<input type="date" id="assessedDate">
+						Completed: <input type="text" size="12" id="completed" placeholder="First Name">
+						<input type="date" id="completedDate">
+					</td>
+				</tr>
+			</div>
 		</table>
 		<br>
 		<input type="button" id="submitButton" value="Submit"> <!-- Center this -->

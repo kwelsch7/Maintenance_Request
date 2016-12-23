@@ -47,8 +47,8 @@ function validateForm()
 		message += "-Date not given/is invalid.\r\n";
 	if(tenant == "")
 		message += "-Name not given.\r\n";
-	if(apartmentNumber > 114 && apartmentNumber < 201 || apartmentNumber > 214 && apartmentNumber < 301)
-		message += "-Not a valid apartment number.\r\n"; // (Outer ends and being a positive integer are validated in the HTML)
+	if(apartmentNumber > 114 && apartmentNumber < 201 || apartmentNumber > 214 && apartmentNumber < 301 || apartmentNumber < 101 || apartmentNumber > 314)
+		message += "-Not a valid apartment number.\r\n";
 	if(!maintenanceDay && !immediately && !whenever)
 		message += "-No response time given.\r\n";
 	if(timeOfDay == "")
