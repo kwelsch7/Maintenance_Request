@@ -68,7 +68,7 @@
 					<td>
 						<!-- Assessment (by maintenance person) -->
 						<p>Assessment:</p>
-						<textarea rows="5" cols="80" name="Assessment"></textarea>
+						<textarea rows="5" cols="80" id="assessment"></textarea>
 					</td>
 				</tr>
 				<tr id="line7">
@@ -85,8 +85,8 @@
 			</div>
 		</table>
 		<br>
-		<input type="button" id="submitButton" value="Submit"> <!-- Center this -->
-		<!-- How to log in to admin page? -->
+		<input type="button" id="submitButton" value="Submit">
+		<input type="button" id="adminLogin" value="Log In">
 	</div>
 	
 	<!-- Note Received; Return to Main form -->
@@ -99,14 +99,17 @@
 	<!-- Administration Page -->
 	<!-- Should this be a separate page? -->
 	<div id="adminPage">
-		<table id="requestList">
+		<h1>Administration Page</h1>
+		<br><input type="button" class="adminLogout" value="Log Out"><br><br>
+		<table id="requestList" border="2">
 			<tr>
-				<th>
-					<h1>Requests</h1>
-				</th> <!-- Order by most recent -->
+				<th>Done?</th>
+				<th>Most recently-submitted first</th>
+				<th>Submission Date</th>
 			</tr>
 			<!-- more rows -->
 		</table>
+		<br><input type="button" class="adminLogout" value="Log Out">
 	</div>
 	
 </body>

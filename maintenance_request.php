@@ -40,9 +40,10 @@
 	catch (PDOException $e)
 	{
 		echo "Connection failed: " . $e->getMessage();
+		exit(http_response_code(400));
 	}
 	
-	// POST == Save, PUT == Update, DELETE == Delete
+	// POST == Save, PUT == Update, DELETE == Delete, ELSE Populate Admin Page table
 	if($_SERVER["REQUEST_METHOD"] == "POST") // do Save
 	{
 		$evalBools;
@@ -178,9 +179,20 @@
 		//echo $key;
 		*/
 	}
-	else
+	else // Populate Admin Page table
 	{
-		echo "Invalid Request";
-		exit(http_response_code(400));
+		try // No prepared statement needed
+		{
+			$sql = "SELECT * FROM request_notes ORDER BY dt DESC, description";
+			$result = $conn->query($sql);
+		}
+		catch(PDOException $e)
+		{
+			echo $sql . "\r\n" . $e->getMessage(); //Not "<br>" because this will be used in console.log()
+		}
+		
+		$conn = null;
+		
+		echo json_encode($result->fetchAll(PDO::FETCH_ASSOC));
 	}
 ?>

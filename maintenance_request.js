@@ -22,6 +22,8 @@ function start()
 	
 	// Click event listeners
 	$("#submitButton").click(addRequest);
+	$("#adminLogin").click(goAdminPage);
+	$(".adminLogout").click(loggingOut);
 	$("#returnButton").click(newRequest);
 }
 
@@ -198,4 +200,92 @@ function newRequest()
 	$("#date").focus();
 	
 	
+}
+
+function goAdminPage()
+{
+	// Fill the table with the recent requests
+	$.getJSON("maintenance_request.php", function(requests) {
+		console.log(requests);
+		for(var r = 0; r < requests.length; ++r)
+		{
+			var appStr = "<tr class='adminRows' id='" + r + "' style='display: table-row; border: 1px;";
+			if(requests[r]["done"] == "true")
+				appStr += " background: grey; color: white;";
+			appStr += "'><td>";
+			if(requests[r]["done"] == "true")
+				appStr += "&nbsp&nbsp&nbsp &#x2714";
+			appStr += "</td><td>"
+			appStr += requests[r]["description"];
+			appStr += "</td><td>";
+			appStr += requests[r]["dt"];
+			appStr += "</td></tr></div>";
+			
+			$("#requestList").append(appStr);
+		}
+		
+		$(".adminRows").click({param: requests}, adminOnNote);
+	});
+	
+	// Ready the display
+	$("#requestNote").hide();
+	$("#adminPage").fadeIn(500);
+}
+
+function adminOnNote(event)
+{
+	var requests = event.data.param;
+	console.log(requests);
+	// An "id" was given to each row (in the tr tag) in the for loop, which was "r" or the row number.
+	//   This is also its index in the Object "requests" (which is why it's used here)
+	var i = $(this).attr("id");
+	
+	// Pre-populates the form with the info from the Request
+	$("#date").val(requests[i]["date"]);
+	$("#tenant").val(requests[i]["tenant"]);
+	$("#aptNo").val(requests[i]["apartmentNumber"]);
+	if(requests[i]["maintenanceDay"] == "true")
+		; //$("#maintenanceDay").is(":checked"); // How to uncheck?
+	if(requests[i]["immediately"] == "true")
+		; //$("#immediately").is(":checked");
+	if(requests[i]["whenever"] == "true")
+		; //$("#whenever").is(":checked");
+	if(requests[i]["yesPerm"] == "true")
+		; //$("#yesPerm").is(":checked"); // How to check?
+	$("#timeOfDay").val(requests[i]["timeOfDay"]);
+	if(requests[i]["phoneContact"] == "true")
+		; //$("#phoneContact").is(":checked");
+	if(requests[i]["textContact"] == "true")
+		; //$("#textContact").is(":checked");
+	$("#phoneNumber").val(requests[i]["phoneNumber"]);
+	$("#description").val(requests[i]["description"]);
+	
+	// Ready the display
+	$("#line6").css("display", "table-row");
+	$("#line7").css("display", "table-row");
+	$("#adminPage").hide();
+	$("#requestNote").fadeIn(500);
+	$("#assessment").focus();
+}
+
+function loggingOut()
+{
+	// Clear Info, give logout message, pause, then go back to New Note page
+	//Clear info
+	$("#adminPage").hide();
+	var oldTable = document.getElementById("#requestList");
+	if(oldTable != null)
+	{
+		var rows = oldTable.rows;
+		var i = rows.length;
+		while(--i)
+			oldTable.deleteRow(i); //technically clearing all but the first(header) row
+	}
+	
+	//Message and Pause
+	alert("Thanks for checking in!\r\nLogging out now...");
+	
+	//Go back to New Note page
+	$("#requestNote").fadeIn(500);
+	$("#date").focus();
 }
