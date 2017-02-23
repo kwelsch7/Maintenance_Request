@@ -1,15 +1,11 @@
 <?php
-	$servername = "localhost";
+	
 	
 	// On the actual Server:
-	//$username = "konnorwe_maintReq";
-	//$password = "complaintSubmi55ion";
-	//$dbname = "konnorwe_maintenance_request";
+	
 	
 	// Local Testing/Debugging:
-	$username = "root";
-	$password = "";
-	$dbname = "maintenance_request";
+	
 	
 	// Regex Stuff
 	$dtPattern = "/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/"; // YYYY-MM-DD format (with other specifiers according to MySQL Date rules)
